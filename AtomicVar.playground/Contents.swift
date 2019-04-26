@@ -29,11 +29,14 @@ struct Atomic<T> {
     }
 }
 
+extension String.StringInterpolation {
+    mutating func appendInterpolation<T>(_ value: Atomic<T>) {
+        appendInterpolation("\(value.value)")
+    }
+}
+
 var atomicInt = Atomic(10)
 atomicInt <~ 20
-print(atomicInt.value)
-
-
-
+print("\(atomicInt)")
 
 
