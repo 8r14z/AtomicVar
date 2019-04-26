@@ -8,15 +8,21 @@ struct Atomic<T> {
     
     private var _value: T
     var value: T {
+        
         set {
             mutex.wait()
+            defer {
+                mutex.signal()
+            }
             _value = newValue
-            mutex.signal()
         }
+        
         get {
             mutex.wait()
+            defer {
+                mutex.signal()
+            }
             return _value
-            mutex.signal()
         }
     }
     
